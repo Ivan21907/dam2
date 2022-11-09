@@ -1,3 +1,7 @@
+package dam2;
+
+import java.util.Scanner;
+
 public class main {
     public static void main(String [] arg){
 
@@ -51,7 +55,7 @@ public class main {
                         System.out.println("\n 4.Eliminar");
                         System.out.println("");
                         System.out.print("Ingressa l'opcio: ");
-                        CuentaAhorro = read.nextInt();
+                        gestionar_moduls_professors = read.nextInt();
                         switch (gestionar_moduls_professors){
                             case 1: System.out.println("Selecciono Alta");
 
