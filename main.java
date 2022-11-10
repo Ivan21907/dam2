@@ -70,9 +70,9 @@ public class main {
 
                             break;
                         }
-                    }while (gestionarprofessors <2);
+                    }while (gestionar_moduls_professors <4);
             }
         }while (opcio<2);
     }
-    }
 }
+
