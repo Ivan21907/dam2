@@ -50,6 +50,41 @@ public class main
         }
     }
 
+    public static void llistarProfessors()
+    {
+        Professor profe = new Professor("", "");
+
+        profe.readDam2();
+    }
+
+    public static void actualitzarProfessor()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introdueix l'id del professor a actualitzar: ");
+        int idProfe = sc.nextInt();
+
+        sc.nextLine();
+        System.out.println("Introdueix el nom del professor: ");
+        String nomProfe = sc.nextLine();
+
+        System.out.println("Introdueix els cognoms del professor: ");
+        String cognomsProfe = sc.nextLine();
+
+        Professor profe = new Professor(idProfe, nomProfe, cognomsProfe);
+
+        try
+        {
+            profe.updateDam2();
+            System.out.println("Professor actualitzat correctament");
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public static void eliminarProfessor()
     {
         Scanner sc = new Scanner(System.in);
@@ -99,12 +134,11 @@ public class main
                                 break;
 
                             case 2:
-                                System.out.println("Selecciono Actualitzar");
-
+                                llistarProfessors();
                                 break;
 
-                            case 3: System.out.println("Selecciono Actualitzar");
-
+                            case 3:
+                                actualitzarProfessor();
                                 break;
 
                             case 4:

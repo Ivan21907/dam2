@@ -109,20 +109,12 @@ public class Professor
         {
             Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
-            PreparedStatement pm = conect.prepareStatement("UPDATE professors SET nom = ?, cognoms = ? WHERE id = ?");
+            PreparedStatement pm = conect.prepareStatement("UPDATE professors SET nom = ?, cognom = ? WHERE idprofessors = ?");
 
-            System.out.println("Introdueix un nou id del professor: ");
-            int idProfe = sc.nextInt();
+            pm.setString(1, this.nom);
+            pm.setString(2, this.cognoms);
+            pm.setInt(3, this.id);
 
-            System.out.println("Introdueix un nou nom del professor: ");
-            String nomProfe = sc.nextLine();
-
-            System.out.println("Introdueix els cognoms nous del professor: ");
-            String cognomsProfe = sc.nextLine();
-
-            pm.setString(1, nomProfe);
-            pm.setString(2, cognomsProfe);
-            pm.setInt(3, idProfe);
 
             pm.executeUpdate();
 
@@ -147,9 +139,9 @@ public class Professor
 
             while(rs.next())
             {
-                System.out.println("Id: " + rs.getInt("id"));
+                System.out.println("Id: " + rs.getInt("idprofessors"));
                 System.out.println("Nom: " + rs.getString("nom"));
-                System.out.println("Cognoms: " + rs.getString("cognoms"));
+                System.out.println("Cognoms: " + rs.getString("cognom"));
             }
 
             pm.close();
