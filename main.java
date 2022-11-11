@@ -105,6 +105,85 @@ public class main
         }
     }
 
+    public static void afegirModul()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introdueix el nom del modul professional: ");
+        String nomModul = sc.nextLine();
+
+        System.out.println("Introdueix l'id del professor: ");
+        int idProfe = sc.nextInt();
+
+        ModulProfessional modul = new ModulProfessional(nomModul, idProfe);
+
+        try
+        {
+            modul.addDam2();
+            System.out.println("Modul afegit correctament");
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void llistarModuls()
+    {
+        ModulProfessional modul = new ModulProfessional("");
+
+        modul.readDam2();
+    }
+
+    public static void actualitzarModul()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introdueix l'id del modul a actualitzar: ");
+        int idModul = sc.nextInt();
+
+        sc.nextLine();
+        System.out.println("Introdueix el nom del modul: ");
+        String nomModul = sc.nextLine();
+
+        System.out.println("Introdueix l'id del professor: ");
+        int idProfe = sc.nextInt();
+
+        ModulProfessional modul = new ModulProfessional(idModul, nomModul, idProfe);
+
+        try
+        {
+            modul.updateDam2();
+            System.out.println("Modul actualitzat correctament");
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void eliminarModul()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introdueix l'id del modul a eliminar: ");
+        int idModul = sc.nextInt();
+
+        ModulProfessional modul = new ModulProfessional(idModul);
+
+        try
+        {
+            modul.deleteDam2();
+            System.out.println("Modul eliminat correctament");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public static void main(String [] arg)
     {
 
@@ -148,6 +227,9 @@ public class main
                                 case 5:
                                     System.out.println("Tornem al menú principal.");
                                 break;
+
+                                default:
+                                    System.err.println("Opció incorrecta");
                         }
 
                     }while (gestionarprofessors != 5);
@@ -165,25 +247,29 @@ public class main
 
                         switch (gestionar_moduls_professors)
                         {
-                            case 1: System.out.println("Selecciono Alta");
+                            case 1:
+                                afegirModul();
+                                break;
 
-                            break;
-                            case 2: System.out.println("Selecciono Llista");
+                            case 2:
+                                llistarModuls();
+                                break;
 
-                            break;
-                            case 3: System.out.println("Selecciono Actualitzar");
+                            case 3:
+                                actualitzarModul();
+                                break;
 
-                            break ;
-                            case 4: System.out.println("Selecciono Eliminar.");
-
-                            break;
+                            case 4:
+                                eliminarModul();
+                                break;
 
                             case 5: System.out.println("Tornem al menu principal.");
-                            break;
+                                break;
 
                             default: System.err.println("Opció incorrecta.");
-                            break;
+                                break;
                         }
+
                     }while (gestionar_moduls_professors != 5);
 
                 case 3:

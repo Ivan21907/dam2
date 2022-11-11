@@ -1,9 +1,6 @@
 package dam2;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 public class ModulProfessional
@@ -17,6 +14,22 @@ public class ModulProfessional
         this.id = id;
         this.nom = nom;
         this.id_professor = id_professor;
+    }
+
+    public ModulProfessional(String nom, int id_professor)
+    {
+        this.nom = nom;
+        this.id_professor = id_professor;
+    }
+
+    public ModulProfessional(int id)
+    {
+        this.id = id;
+    }
+
+    public ModulProfessional(String nom)
+    {
+        this.nom = nom;
     }
 
     public int getId() {
@@ -47,24 +60,118 @@ public class ModulProfessional
     {
         Scanner sc = new Scanner(System.in);
 
-        Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
+        try
+        {
+            Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
-        PreparedStatement pm = conect.prepareStatement("INSERT INTO modul_professional (id, nom, id_professor) VALUES (?, ?, ?)");
+            PreparedStatement pm = conect.prepareStatement("INSERT INTO mòdul_professional (nom, id_professor) VALUES (?, ?)");
 
-        System.out.println("Introdueix l'id del modul professional: ");
-        int idModul = sc.nextInt();
+            /*System.out.println("Introdueix l'id del modul professional: ");
+            int idModul = sc.nextInt();
 
-        System.out.println("Introdueix el nom del modul professional: ");
-        String nomModul = sc.nextLine();
+            System.out.println("Introdueix el nom del modul professional: ");
+            String nomModul = sc.nextLine();
 
-        System.out.println("Introdueix l'id del professor: ");
-        int idProfe = sc.nextInt();
+            System.out.println("Introdueix l'id del professor: ");
+            int idProfe = sc.nextInt();*/
 
-        pm.setInt(1, idModul);
-        pm.setString(2, nomModul);
-        pm.setInt(3, idProfe);
+            pm.setString(1, this.nom);
+            pm.setInt(2, this.id_professor);
 
-        pm.executeUpdate();
+            pm.executeUpdate();
+
+            pm.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+
+    public void updateDam2()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        try
+        {
+            Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
+
+            PreparedStatement pm = conect.prepareStatement("UPDATE mòdul_professional SET nom = ?, id_professor = ? WHERE idmòdul_Professional = ?");
+
+            /*System.out.println("Introdueix l'id del modul professional a actualitzar: ");
+            int idModul = sc.nextInt();
+
+            System.out.println("Introdueix el nou nom del modul professional: ");
+            String nomModul = sc.nextLine();
+
+            System.out.println("Introdueix l'id del nou professor: ");
+            int idProfe = sc.nextInt();*/
+
+            pm.setString(1, this.nom);
+            pm.setInt(2, this.id_professor);
+            pm.setInt(3, this.id);
+
+            pm.executeUpdate();
+
+            pm.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void deleteDam2()
+    {
+        try
+        {
+            Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
+
+            PreparedStatement pm = conect.prepareStatement("DELETE FROM mòdul_professional WHERE idmòdul_Professional = ?");
+
+            /*System.out.println("Introdueix l'id del modul professional a eliminar: ");
+            int idModul = sc.nextInt();*/
+
+            pm.setInt(1, this.id);
+
+            pm.executeUpdate();
+
+            pm.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void readDam2()
+    {
+        try
+        {
+            Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
+
+            PreparedStatement pm = conect.prepareStatement("SELECT mp.idmòdul_Professional, mp.nom, p.nom, p.cognom FROM " +
+                    "mòdul_professional mp INNER JOIN professors p ON mp.id_professor = p.idprofessors");
+
+            ResultSet rs = pm.executeQuery();
+
+            while (rs.next())
+            {
+                System.out.println("Id del mòdul professional: " + rs.getInt(1));
+                System.out.println("Nom del mòdul professional: " + rs.getString(2));
+                System.out.println("Nom del professor: " + rs.getString(3));
+                System.out.println("Cognom del professor: " + rs.getString(4));
+
+                System.out.println("------------------------------------------------");
+            }
+
+            pm.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
 }
