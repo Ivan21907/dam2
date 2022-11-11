@@ -9,11 +9,22 @@ public class Professor
     private String nom;
     private String cognoms;
 
+    public Professor(String nom, String cognoms)
+    {
+        this.nom = nom;
+        this.cognoms = cognoms;
+    }
+
     public Professor(int id, String nom, String cognoms)
     {
         this.id = id;
         this.nom = nom;
         this.cognoms = cognoms;
+    }
+
+    public Professor(int id)
+    {
+        this.id = id;
     }
 
     public int getId() {
@@ -44,64 +55,84 @@ public class Professor
     {
         Scanner sc = new Scanner(System.in);
 
-        Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
+        try
+        {
+            Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
-        PreparedStatement pm = conect.prepareStatement("INSERT INTO professor (id, nom, cognoms) VALUES (?, ?, ?)");
+            PreparedStatement pm = conect.prepareStatement("INSERT INTO professors (nom, cognom) VALUES (?, ?)");
 
-        System.out.println("Introdueix l'id del professor: ");
-        int idProfe = sc.nextInt();
+            pm.setString(1, this.nom);
+            pm.setString(2, this.cognoms);
 
-        System.out.println("Introdueix el nom del professor: ");
-        String nomProfe = sc.nextLine();
+            pm.executeUpdate();
 
-        System.out.println("Introdueix els cognoms del professor: ");
-        String cognomsProfe = sc.nextLine();
+            pm.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
 
-        pm.setInt(1, idProfe);
-        pm.setString(2, nomProfe);
-        pm.setString(3, cognomsProfe);
-
-        pm.executeUpdate();
     }
 
     public void deleteDam2() throws SQLException
     {
         Scanner sc = new Scanner(System.in);
 
-        Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
+        try
+        {
+            Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
-        PreparedStatement pm = conect.prepareStatement("DELETE FROM professor WHERE id = ?");
+            PreparedStatement pm = conect.prepareStatement("DELETE FROM professors WHERE idprofessors = ?");
 
-        System.out.println("Introdueix l'id del professor a eliminar: ");
-        int idProfe = sc.nextInt();
+            /*System.out.println("Introdueix l'id del professor a eliminar: ");
+            int idProfe = sc.nextInt();*/
 
-        pm.setInt(1, idProfe);
+            pm.setInt(1, this.id);
 
-        pm.executeUpdate();
+            pm.executeUpdate();
+
+            pm.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+
     }
 
     public void updateDam2() throws SQLException
     {
         Scanner sc = new Scanner(System.in);
 
-        Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
+        try
+        {
+            Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
-        PreparedStatement pm = conect.prepareStatement("UPDATE professor SET nom = ?, cognoms = ? WHERE id = ?");
+            PreparedStatement pm = conect.prepareStatement("UPDATE professors SET nom = ?, cognoms = ? WHERE id = ?");
 
-        System.out.println("Introdueix un l'id del professor: ");
-        int idProfe = sc.nextInt();
+            System.out.println("Introdueix un nou id del professor: ");
+            int idProfe = sc.nextInt();
 
-        System.out.println("Introdueix un nou nom del professor: ");
-        String nomProfe = sc.nextLine();
+            System.out.println("Introdueix un nou nom del professor: ");
+            String nomProfe = sc.nextLine();
 
-        System.out.println("Introdueix els cognoms del professor: ");
-        String cognomsProfe = sc.nextLine();
+            System.out.println("Introdueix els cognoms nous del professor: ");
+            String cognomsProfe = sc.nextLine();
 
-        pm.setString(1, nomProfe);
-        pm.setString(2, cognomsProfe);
-        pm.setInt(3, idProfe);
+            pm.setString(1, nomProfe);
+            pm.setString(2, cognomsProfe);
+            pm.setInt(3, idProfe);
 
-        pm.executeUpdate();
+            pm.executeUpdate();
+
+            pm.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+
     }
 
     public void readDam2()
@@ -110,7 +141,7 @@ public class Professor
         {
             Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
-            PreparedStatement pm = conect.prepareStatement("SELECT * FROM professor");
+            PreparedStatement pm = conect.prepareStatement("SELECT * FROM professors");
 
             ResultSet rs = pm.executeQuery();
 
@@ -120,6 +151,8 @@ public class Professor
                 System.out.println("Nom: " + rs.getString("nom"));
                 System.out.println("Cognoms: " + rs.getString("cognoms"));
             }
+
+            pm.close();
         }
         catch(SQLException e)
         {
