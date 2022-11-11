@@ -66,15 +66,6 @@ public class ModulProfessional
 
             PreparedStatement pm = conect.prepareStatement("INSERT INTO mòdul_professional (nom, id_professor) VALUES (?, ?)");
 
-            /*System.out.println("Introdueix l'id del modul professional: ");
-            int idModul = sc.nextInt();
-
-            System.out.println("Introdueix el nom del modul professional: ");
-            String nomModul = sc.nextLine();
-
-            System.out.println("Introdueix l'id del professor: ");
-            int idProfe = sc.nextInt();*/
-
             pm.setString(1, this.nom);
             pm.setInt(2, this.id_professor);
 
@@ -99,15 +90,6 @@ public class ModulProfessional
 
             PreparedStatement pm = conect.prepareStatement("UPDATE mòdul_professional SET nom = ?, id_professor = ? WHERE idmòdul_Professional = ?");
 
-            /*System.out.println("Introdueix l'id del modul professional a actualitzar: ");
-            int idModul = sc.nextInt();
-
-            System.out.println("Introdueix el nou nom del modul professional: ");
-            String nomModul = sc.nextLine();
-
-            System.out.println("Introdueix l'id del nou professor: ");
-            int idProfe = sc.nextInt();*/
-
             pm.setString(1, this.nom);
             pm.setInt(2, this.id_professor);
             pm.setInt(3, this.id);
@@ -129,9 +111,6 @@ public class ModulProfessional
             Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
             PreparedStatement pm = conect.prepareStatement("DELETE FROM mòdul_professional WHERE idmòdul_Professional = ?");
-
-            /*System.out.println("Introdueix l'id del modul professional a eliminar: ");
-            int idModul = sc.nextInt();*/
 
             pm.setInt(1, this.id);
 
@@ -162,7 +141,6 @@ public class ModulProfessional
                 System.out.println("Nom del mòdul professional: " + rs.getString(2));
                 System.out.println("Nom del professor: " + rs.getString(3));
                 System.out.println("Cognom del professor: " + rs.getString(4));
-
                 System.out.println("------------------------------------------------");
             }
 
