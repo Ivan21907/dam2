@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 public class Professor
 {
+    //Atributs de la classe
     private int id;
     private String nom;
     private String cognoms;
 
+    //constructors de la classe
     public Professor(String nom, String cognoms)
     {
         this.nom = nom;
@@ -27,6 +29,7 @@ public class Professor
         this.id = id;
     }
 
+    //Getters & Setters
     public int getId() {
         return id;
     }
@@ -51,21 +54,30 @@ public class Professor
         this.cognoms = cognoms;
     }
 
+    /**
+     * Funcio que afegeix un professor a la base de dades
+     * @throws SQLException
+     */
     public void addDam2() throws SQLException
     {
         Scanner sc = new Scanner(System.in);
 
         try
         {
+            //fem la connexio
             Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
+            //preparem la sentencia
             PreparedStatement pm = conect.prepareStatement("INSERT INTO professors (nom, cognom) VALUES (?, ?)");
 
+            //omplim els camps de la sentencia
             pm.setString(1, this.nom);
             pm.setString(2, this.cognoms);
 
+            //executem la sentencia
             pm.executeUpdate();
 
+            //tanquem la connexio
             pm.close();
         }
         catch (SQLException e)
@@ -75,6 +87,10 @@ public class Professor
 
     }
 
+    /**
+     * Funcio que elimina un professor de la base de dades
+     * @throws SQLException
+     */
     public void deleteDam2() throws SQLException
     {
         Scanner sc = new Scanner(System.in);
@@ -84,9 +100,6 @@ public class Professor
             Connection conect = DriverManager.getConnection("jdbc:mysql://localhost:3306/dam2", "root", "ivan2001");
 
             PreparedStatement pm = conect.prepareStatement("DELETE FROM professors WHERE idprofessors = ?");
-
-            /*System.out.println("Introdueix l'id del professor a eliminar: ");
-            int idProfe = sc.nextInt();*/
 
             pm.setInt(1, this.id);
 
@@ -101,6 +114,10 @@ public class Professor
 
     }
 
+    /**
+     * Funcio que modifica un professor de la base de dades a partir del seu id
+     * @throws SQLException
+     */
     public void updateDam2() throws SQLException
     {
         Scanner sc = new Scanner(System.in);
@@ -127,6 +144,9 @@ public class Professor
 
     }
 
+    /**
+     * Funcio que mostra tots els professors de la base de dades
+     */
     public void readDam2()
     {
         try

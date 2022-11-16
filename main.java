@@ -6,6 +6,9 @@ import java.util.Scanner;
 public class main
 {
 
+    /**
+     * Funcio que mostra el menu principal
+     */
     public static void menu1()
     {
         System.out.println("\n 1.Gestionar Professors");
@@ -15,6 +18,9 @@ public class main
         System.out.print("Ingressa l'opcio: ");
     }
 
+    /**
+     * Funcio que mostra el menu de professors i moduls
+     */
     public static void menu2()
     {
         System.out.println("\n 1.Alta");
@@ -26,6 +32,9 @@ public class main
         System.out.print("Ingressa l'opció: ");
     }
 
+    /**
+     * Funcio que afegeix un professor a la base de dades creant un objecte de la classe Professor
+     */
     public static void afegirProfessor()
     {
         Scanner sc = new Scanner(System.in);
@@ -50,6 +59,9 @@ public class main
         }
     }
 
+    /**
+     * Funcio que mostra tots els professors de la base de dades
+     */
     public static void llistarProfessors()
     {
         Professor profe = new Professor("", "");
@@ -57,6 +69,9 @@ public class main
         profe.readDam2();
     }
 
+    /**
+     * Funcio que modifica un professor de la base de dades a partir de l'id del professor
+     */
     public static void actualitzarProfessor()
     {
         Scanner sc = new Scanner(System.in);
@@ -65,6 +80,7 @@ public class main
         int idProfe = sc.nextInt();
 
         sc.nextLine();
+
         System.out.println("Introdueix el nom del professor: ");
         String nomProfe = sc.nextLine();
 
@@ -85,6 +101,9 @@ public class main
         }
     }
 
+    /**
+     * Funcio que elimina un professor de la base de dades a partir de l'id del professor
+     */
     public static void eliminarProfessor()
     {
         Scanner sc = new Scanner(System.in);
@@ -105,6 +124,9 @@ public class main
         }
     }
 
+    /**
+     * Funcio que afegeix un modul a la base de dades creant un objecte de la classe Modul
+     */
     public static void afegirModul()
     {
         Scanner sc = new Scanner(System.in);
@@ -129,6 +151,9 @@ public class main
         }
     }
 
+    /**
+     * Funcio que mostra tots els moduls de la base de dades
+     */
     public static void llistarModuls()
     {
         ModulProfessional modul = new ModulProfessional("");
@@ -136,6 +161,9 @@ public class main
         modul.readDam2();
     }
 
+    /**
+     * Funcio que modifica un modul de la base de dades a partir de l'id del modul
+     */
     public static void actualitzarModul()
     {
         Scanner sc = new Scanner(System.in);
@@ -164,6 +192,9 @@ public class main
         }
     }
 
+    /**
+     * Funcio que elimina un modul de la base de dades a partir de l'id del modul
+     */
     public static void eliminarModul()
     {
         Scanner sc = new Scanner(System.in);
@@ -192,6 +223,7 @@ public class main
         read = new Scanner (System.in);
         int opcio= 0;
 
+        //bucle perque el programa no acabi fins que s'entra l'opcio 3 del menu principal
         do
         {
             menu1();
@@ -206,6 +238,8 @@ public class main
                     {
                         menu2();
                         gestionarprofessors = read.nextInt();
+
+                        //2n bucle perque el programa no acabi fins que s'entra l'opcio 5 del 2n menu
                         switch (gestionarprofessors)
                         {
                             case 1:
@@ -230,6 +264,7 @@ public class main
 
                                 default:
                                     System.err.println("Opció incorrecta");
+                                    break;
                         }
 
                     }while (gestionarprofessors != 5);
@@ -271,6 +306,7 @@ public class main
                         }
 
                     }while (gestionar_moduls_professors != 5);
+                    break;
 
                 case 3:
                     System.out.println("Has sortit del programa. Adeu!");
