@@ -14,12 +14,22 @@ public class Alumne
     private int id;
     private String nom;
     private String cognoms;
-    private String data_naixement;
-    private curs curs;
+    private Date data_naixement;
+    private String curs;
     private String[] nom_Projenitors;
 
     //constructors de la classe
-    public Alumne(String nom, String cognoms, String data_naixement, curs curs, String[] nom_Projenitors)
+
+    public Alumne(int id, String nom, String cognoms, Date data_naixement, String curs, String[] nom_Projenitors)
+    {
+        this.id = id;
+        this.nom = nom;
+        this.cognoms = cognoms;
+        this.data_naixement = data_naixement;
+        this.curs = curs;
+        this.nom_Projenitors = nom_Projenitors;
+    }
+    public Alumne(String nom, String cognoms, Date data_naixement, String curs, String[] nom_Projenitors)
     {
         this.nom = nom;
         this.cognoms = cognoms;
@@ -49,6 +59,9 @@ public class Alumne
 
     }
 
+    /**
+     * Funcio que afegeix un alumne a la base de dades
+     */
     public void addDam2()
     {
         Scanner sc = new Scanner(System.in);
@@ -59,14 +72,14 @@ public class Alumne
             Connection conect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Connexio", "postgres", "ivan2001");
 
             //preparem la sentencia
-            PreparedStatement pm = conect.prepareStatement("INSERT INTO professors (nom, cognoms, datanaixement, curs, NomProgenitor) " +
+            PreparedStatement pm = conect.prepareStatement("INSERT INTO alumnes (nom, cognoms, datanaixement, curs, NomProgenitor) " +
                     "VALUES (?, ?, ?, ?::\"curs\", ?)");
 
             //omplim els camps de la sentencia
             pm.setString(1, this.nom);
             pm.setString(2, this.cognoms);
-            pm.setString(3, this.data_naixement);
-            pm.setString(4, this.curs.toString());
+            pm.setDate(3, this.data_naixement);
+            pm.setString(4, this.curs);
             pm.setArray(5, conect.createArrayOf("text", this.nom_Projenitors));
 
             //executem la sentencia
@@ -81,6 +94,9 @@ public class Alumne
         }
     }
 
+    /**
+     * Funcio que elimina un alumne de la base de dades
+     */
     public void deleteDam2()
     {
         Scanner sc = new Scanner(System.in);
@@ -108,6 +124,9 @@ public class Alumne
         }
     }
 
+    /**
+     * Funcio que modifica un alumne de la base de dades
+     */
     public void updateDam2()
     {
         Scanner sc = new Scanner(System.in);
@@ -123,8 +142,8 @@ public class Alumne
             //omplim els camps de la sentencia
             pm.setString(1, this.nom);
             pm.setString(2, this.cognoms);
-            pm.setString(3, this.data_naixement);
-            pm.setString(4, this.curs.toString());
+            pm.setDate(3, (java.sql.Date) this.data_naixement);
+            pm.setString(4, this.curs);
             pm.setArray(5, conect.createArrayOf("text", this.nom_Projenitors));
             pm.setInt(6, this.id);
 

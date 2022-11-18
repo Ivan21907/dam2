@@ -1,6 +1,9 @@
 package dam2;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.Scanner;
 
 public class main
@@ -13,7 +16,7 @@ public class main
     {
         System.out.println("\n 1.Gestionar Professors");
         System.out.println("\n 2.Gestionar moduls professors");
-        System.out.println("\n 3.Gestionar Alumnes");
+        System.out.println("\n 3.Gestionar Alumnes (Base de dades en PostreSQL)");
         System.out.println("\n 4.Sortir del programa");
         System.out.println("");
         System.out.print("Ingressa l'opcio: ");
@@ -216,8 +219,12 @@ public class main
         }
     }
 
+    /**
+     * Funcio que afegeix un alumne a la base de dades creant un objecte de la classe Alumne
+     */
     public static void afegirAlumne()
     {
+
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Introdueix el nom de l'alumne: ");
@@ -226,8 +233,12 @@ public class main
         System.out.println("Introdueix els cognoms de l'alumne: ");
         String cognomsAlumne = sc.nextLine();
 
-        System.out.println("Introdueix la data de naixement l'alumne: ");
-        String dataNaixement = sc.nextLine();
+        System.out.println("Introdueix la data de naixement l'alumne (YYYY-MM-DD): ");
+        String data_text = sc.nextLine();
+        //Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+        //data_text = sdf.format(d);
+        Date dataNaixement = Date.valueOf(data_text);
 
         System.out.println("Introdueix el curs de l'alumne: ");
         String curs = sc.nextLine();
@@ -235,13 +246,26 @@ public class main
         System.out.println("Introdueix el projenitor de l'alumne: ");
         String projenitor = sc.nextLine();
 
-        //Alumne alumne = new Alumne(nomAlumne, cognomsAlumne, dataNaixement, curs, projenitor);
+        String [] projenitors = {projenitor};
 
-        //alumne.addDam2();
-        System.out.println("Professor afegit correctament");
+        Alumne alumne = new Alumne(nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
+
+        try
+        {
+            alumne.addDam2();
+            System.out.println("Alumne afegit correctament");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+
 
     }
 
+    /**
+     * Funcio que mostra tots els alumnes de la base de dades
+     */
     public static void llegirAlumne()
     {
 
@@ -257,6 +281,9 @@ public class main
         }
     }
 
+    /**
+     * Funcio que modifica un alumne de la base de dades a partir d'un id de l'alumne
+     */
     public static void actualitzarAlumne()
     {
         Scanner sc = new Scanner(System.in);
@@ -271,8 +298,12 @@ public class main
         System.out.println("Introdueix els cognoms de l'alumne: ");
         String cognomsAlumne = sc.nextLine();
 
-        System.out.println("Introdueix la data de naixement l'alumne: ");
-        String dataNaixement = sc.nextLine();
+        System.out.println("Introdueix la data de naixement l'alumne (YYYY-MM-DD): ");
+        String data_text = sc.nextLine();
+        //Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+        //data_text = sdf.format(d);
+        Date dataNaixement = Date.valueOf(data_text);
 
         System.out.println("Introdueix el curs de l'alumne: ");
         String curs = sc.nextLine();
@@ -280,13 +311,25 @@ public class main
         System.out.println("Introdueix el projenitor de l'alumne: ");
         String projenitor = sc.nextLine();
 
-        //Alumne alumne = new Alumne(idAlumne, nomAlumne, cognomsAlumne, dataNaixement, curs, projenitor);
+        String [] projenitors = {projenitor};
 
-        //alumne.updateDam2();
-        System.out.println("Alumne actualitzat correctament");
+        Alumne alumne = new Alumne(idAlumne, nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
+
+        try
+        {
+            alumne.updateDam2();
+            System.out.println("Alumne actualitzat correctament");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
 
     }
 
+    /**
+     * Funcio que elimina un alumne de la base de dades a partir d'un id de l'alumne
+     */
     public static void eliminarAlumne()
     {
         Scanner sc = new Scanner(System.in);
@@ -307,8 +350,8 @@ public class main
         }
     }
 
-    public static void main(String [] arg)
-    {
+    //Programa principal
+    public static void main(String [] arg) throws ParseException {
 
         Scanner read = new Scanner(System.in);
 
@@ -408,7 +451,7 @@ public class main
                         menu2();
                         gestioAlumnes = read.nextInt();
 
-                        //2n bucle perque el programa no acabi fins que s'entra l'opcio 5 del 2n menu
+                        //3r bucle perque el programa no acabi fins que s'entra l'opcio 5 del 2n menu
                         switch (gestioAlumnes)
                         {
                             case 1:
