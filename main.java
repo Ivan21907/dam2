@@ -13,7 +13,8 @@ public class main
     {
         System.out.println("\n 1.Gestionar Professors");
         System.out.println("\n 2.Gestionar moduls professors");
-        System.out.println("\n 3.Sortir del programa");
+        System.out.println("\n 3.Gestionar Alumnes");
+        System.out.println("\n 4.Sortir del programa");
         System.out.println("");
         System.out.print("Ingressa l'opcio: ");
     }
@@ -215,6 +216,97 @@ public class main
         }
     }
 
+    public static void afegirAlumne()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introdueix el nom de l'alumne: ");
+        String nomAlumne = sc.nextLine();
+
+        System.out.println("Introdueix els cognoms de l'alumne: ");
+        String cognomsAlumne = sc.nextLine();
+
+        System.out.println("Introdueix la data de naixement l'alumne: ");
+        String dataNaixement = sc.nextLine();
+
+        System.out.println("Introdueix el curs de l'alumne: ");
+        String curs = sc.nextLine();
+
+        System.out.println("Introdueix el projenitor de l'alumne: ");
+        String projenitor = sc.nextLine();
+
+        //Alumne alumne = new Alumne(nomAlumne, cognomsAlumne, dataNaixement, curs, projenitor);
+
+        //alumne.addDam2();
+        System.out.println("Professor afegit correctament");
+
+    }
+
+    public static void llegirAlumne()
+    {
+
+        Alumne alumne = new Alumne("", "");
+
+        try
+        {
+            alumne.readDam2();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void actualitzarAlumne()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introdueix l'id de l'alumne a actualitzar: ");
+        int idAlumne = sc.nextInt();
+
+        sc.nextLine();
+        System.out.println("Introdueix el nom de l'alumne: ");
+        String nomAlumne = sc.nextLine();
+
+        System.out.println("Introdueix els cognoms de l'alumne: ");
+        String cognomsAlumne = sc.nextLine();
+
+        System.out.println("Introdueix la data de naixement l'alumne: ");
+        String dataNaixement = sc.nextLine();
+
+        System.out.println("Introdueix el curs de l'alumne: ");
+        String curs = sc.nextLine();
+
+        System.out.println("Introdueix el projenitor de l'alumne: ");
+        String projenitor = sc.nextLine();
+
+        //Alumne alumne = new Alumne(idAlumne, nomAlumne, cognomsAlumne, dataNaixement, curs, projenitor);
+
+        //alumne.updateDam2();
+        System.out.println("Alumne actualitzat correctament");
+
+    }
+
+    public static void eliminarAlumne()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introdueix l'id de l'alumne a eliminar: ");
+        int idAlumne = sc.nextInt();
+
+        Alumne alumne = new Alumne(idAlumne);
+
+        try
+        {
+            alumne.deleteDam2();
+            System.out.println("Alumne eliminat correctament");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public static void main(String [] arg)
     {
 
@@ -309,6 +401,46 @@ public class main
                     break;
 
                 case 3:
+                    int gestioAlumnes = 0;
+                    System.out.println("Gesio d'alumnes");
+                    do
+                    {
+                        menu2();
+                        gestioAlumnes = read.nextInt();
+
+                        //2n bucle perque el programa no acabi fins que s'entra l'opcio 5 del 2n menu
+                        switch (gestioAlumnes)
+                        {
+                            case 1:
+                                afegirAlumne();
+                                break;
+
+                            case 2:
+                                llegirAlumne();
+                                break;
+
+                            case 3:
+                                actualitzarAlumne();
+                                break;
+
+                            case 4:
+                                eliminarAlumne();
+                                break;
+
+                            case 5:
+                                System.out.println("Tornem al menú principal.");
+                                break;
+
+                            default:
+                                System.err.println("Opció incorrecta");
+                                break;
+                        }
+
+                    }while (gestioAlumnes != 5);
+
+                    break;
+
+                case 4:
                     System.out.println("Has sortit del programa. Adeu!");
                     break;
 
@@ -316,7 +448,7 @@ public class main
                     System.err.println("Opcio incorrecta");
                     break;
             }
-        }while (opcio != 3);
+        }while (opcio != 4);
     }
 }
 
