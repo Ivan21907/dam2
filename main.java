@@ -235,9 +235,7 @@ public class main
 
         System.out.println("Introdueix la data de naixement l'alumne (YYYY-MM-DD): ");
         String data_text = sc.nextLine();
-        //Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
-        //data_text = sdf.format(d);
         Date dataNaixement = Date.valueOf(data_text);
 
         System.out.println("Introdueix el curs de l'alumne: ");
@@ -246,21 +244,44 @@ public class main
         System.out.println("Introdueix el projenitor de l'alumne: ");
         String projenitor = sc.nextLine();
 
-        String [] projenitors = {projenitor};
+        System.out.println("Vols afegir un nou projenitor? (S/N)");
+        String lletra = sc.nextLine();
 
-        Alumne alumne = new Alumne(nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
-
-        try
+        /*Donem l'opcio a l'usuari de dir si te un altre projenitor o no
+        Si te un altre projenitor, li demanem que introdueixi el nom del 2n projenitor
+         */
+        if(lletra.equalsIgnoreCase("S"))
         {
-            alumne.addDam2();
-            System.out.println("Alumne afegit correctament");
+            System.out.println("Introdueix el nou projenitor: ");
+            String nouProjenitor = sc.nextLine();
+
+            String [] projenitors = {projenitor, nouProjenitor};
+            Alumne alumne = new Alumne(nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
+
+            try
+            {
+                alumne.addDam2();
+                System.out.println("Alumne afegit correctament");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
-        catch(Exception e)
+        else
         {
-            System.out.println("Error: " + e.getMessage());
+            String [] projenitors = {projenitor};
+            Alumne alumne = new Alumne(nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
+            try
+            {
+                alumne.addDam2();
+                System.out.println("Alumne afegit correctament");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
-
-
     }
 
     /**
@@ -300,9 +321,7 @@ public class main
 
         System.out.println("Introdueix la data de naixement l'alumne (YYYY-MM-DD): ");
         String data_text = sc.nextLine();
-        //Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
-        //data_text = sdf.format(d);
         Date dataNaixement = Date.valueOf(data_text);
 
         System.out.println("Introdueix el curs de l'alumne: ");
@@ -311,18 +330,41 @@ public class main
         System.out.println("Introdueix el projenitor de l'alumne: ");
         String projenitor = sc.nextLine();
 
-        String [] projenitors = {projenitor};
+        System.out.println("Vols afegir un nou projenitor? (S/N)");
+        String lletra = sc.nextLine();
 
-        Alumne alumne = new Alumne(idAlumne, nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
-
-        try
+         /*Donem l'opcio a l'usuari de dir si te un altre projenitor o no
+        Si te un altre projenitor, li demanem que introdueixi el nom del 2n projenitor
+         */
+        if(lletra.equalsIgnoreCase("S"))
         {
-            alumne.updateDam2();
-            System.out.println("Alumne actualitzat correctament");
+            System.out.println("Introdueix el nou projenitor: ");
+            String nouProjenitor = sc.nextLine();
+            String [] projenitors = {projenitor, nouProjenitor};
+            Alumne alumne = new Alumne(idAlumne, nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
+            try
+            {
+                alumne.updateDam2();
+                System.out.println("Alumne actualitzat correctament");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
-        catch (Exception e)
+        else
         {
-            System.out.println("Error: " + e.getMessage());
+            String [] projenitors = {projenitor};
+            Alumne alumne = new Alumne(idAlumne, nomAlumne, cognomsAlumne, dataNaixement, curs, projenitors);
+            try
+            {
+                alumne.updateDam2();
+                System.out.println("Alumne actualitzat correctament");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
 
     }
